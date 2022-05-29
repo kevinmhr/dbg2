@@ -529,7 +529,7 @@ if(
 )
 
 
-{co++; snd();sc=sc+10;re=re+1;ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
+{co++; snd();sc=sc+5;re=re+1;ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
 if (sc<=1){sc=1;key=key*100000;}
 if (sc>=1000){sc=10000;}
 tri++;
