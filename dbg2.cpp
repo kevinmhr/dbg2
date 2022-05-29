@@ -424,7 +424,7 @@ if (tri>=40 ){tri=1;}
 if(y<=10){r=-(r); }  if(y<=0){y=o; }
  if (x<=10){o=-(o);}  if (x<=0){x=0;}
 //if (z>0){z=0;}
-if (ytrig[tri]>175){ytrig[tri]=0;xtrig[tri]=xtrig[x]*30; sc=sc-1;}
+if (ytrig[tri]>175){ytrig[tri]=0;xtrig[tri]=xtrig[x]*30; sc=sc-2;}
 if (co>10){co=1;}
 yscroll++;
 
@@ -558,7 +558,7 @@ if(
 
 ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
 if (sc<=1){key=key*100000;}
-if (sc>=500){sc=sc-1;}
+if (sc>=200){sc--;}
 
 tri++;
 tri++;
