@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream.h>
+
 #include <math.h>
 #define NUM_COLORS 256
 
@@ -22,10 +24,11 @@ int width= 200;
 int ff();
 #define PALETTE_INDEX 0x3C8
 #define PALETTE_DATA 0x3C9
-
+#include "font.c"
 typedef unsigned char byte;
-
+typedef unsigned char text;
 byte far *VGA=(byte far *)0xA0000000L;
+byte far *GGG=(byte far *)0xA0000000L;
 int x=150;
 int  y=150;
 #define SETPIX(x,y,c) *(VGA+(x)+(y)+height)=c
@@ -33,21 +36,23 @@ int  y=150;
 #define TARGPIX(targx,targy,c) *(VGA+(targx)+(targy)*320)=c
 #define BULLETPIX(targx,targy,c) *(VGA+(targx)+(targy)*320)=c
 
+
+
 //#define MAX(x,y) ((x) > (y) ? (x) : (y))
 //#define MIN(x,y) ((x) < (y) ? (x) : (y))
-  int i,k,l,c,o,z,p,s,move,t;
+  int i,k,c,o,z,p,s,move,t;
 //  int xtrig[]={2,4,6,8,10,12,14,16,18,20};
 //  int ytrig[]={2,4,6,8,10,12,14,16,18,20};
-
+  int l=1;
   int r,flat;
   int ol=0;
-int sc=1;
-
+int sc;
+int scxpos=180;
 int targx,bullx;
 int targy,bully,tempy;
 int null=100;
 int key,cari,carp;
-int re=-10;
+int re;
 int co=1;
 int tri=1;
 void set_mode(byte mode)
@@ -66,7 +71,6 @@ int car[]={1,3,1,4,1,5,1,6,2,3,2,4,2,5,2,6,2,7,3,3
 	   ,3,6,3,7,4,3,4,6,4,7,5,3,5,6,5,7,6,3,6,6,
 	   6,7,7,3,7,4,7,5,7,6,8,3,8,4,8,5,8,6,9,3,
 	    9,4,9,5,9,6,10,3,10,4,10,5,10,6,11,3,11,4,11,5};
-
 
 int charax[]={1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,
 
@@ -108,7 +112,7 @@ int xtrig[]={1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5.1,2,3,4,5,1,2,3,4,5,1,2,3,4
 int chix[]={1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4};
 int chiy[]={1,2,3,3,3,3,5,5,9,9,1,1,3,4,5,6,7,7,9,9,1,1,3,4,5,6,7,7,9,9,1,2,3,3,3,3,5,5,9,9,};
 
- 
+int location[]={10,90,30,60,20,70};
 
 
 
@@ -118,10 +122,11 @@ int iconx[]={1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4
 int icony[]={4,4,4,4,4,1,1,1,1,1,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,1,1,1,1,1,4,4,4,4,4
 	      ,	1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10};
 
+char *ini="DBG2 by keyvan mehrbakhsh 2022 ";
 
 
-
-
+char score[]={'1','2','3','4','5','6','7','8','9','0'};
+char score2[]={'1','2','3','4','5','6','7','8','9','0'};
 
 
 
@@ -283,8 +288,20 @@ void clsc(int opaq){
   for(c=0;c<320;c++){
 
 
-    GETPIX (c,l,co
-    );
+
+
+
+
+
+
+
+
+    GETPIX (c,l,co);
+
+
+
+
+
 
   //  GETPIX (c,l,0);
 //     GETPIX (c,l,0);
@@ -304,28 +321,15 @@ void colli(){
 
 
 }
-void scoreboard(){
-
-if (null == 200){
-	     sc=sc-20;
-	//   ytrig=ytrig-(tan(key)/4);xtrig=xtrig-tan(key);
-
-
-
-		 for (l=0;l<40;l++){
+void scoremath(){
 
 
 
 
 
-	     // charac[l]=charac[l+key]+1;
 
 
 
-			   }
-
-	    null=0;
-}
 		  }
 
 
@@ -382,7 +386,7 @@ int main(){
 
 
 
-
+  init_font();
 
   char kc = 0;
   char s[255];
@@ -390,8 +394,11 @@ int main(){
 
   set_mode( VGA_256_COLOR_MODE );
 
+   for (l=0;l<sizeof ini*8;l++){
+ put_char (ini[l],20+l*8,100,1,VGA);
 
-
+	     }
+ getch();
   /* printf("Hello, world!\n"); */
 
 
@@ -400,6 +407,10 @@ int main(){
 
 
   {
+
+
+
+
 
 moving();
 
@@ -438,11 +449,17 @@ ytrig[tri]++;
 
 //clsc(0);
 
-scoreboard();
+
 chara(tri);
 
+scoremath();
+	      l=1;
+       for (l=l;l<re;l++){
+    put_char (score[re+10], 230+8,10,8,VGA);
+		      if (re>=10){ l=l+8;re=1;  }
 
-
+			 }
+//if (sc>=10){re=0; }
 
 
 
@@ -512,7 +529,7 @@ if(
 )
 
 
-{co++; snd();sc=sc+10;ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
+{co++; snd();sc=sc+5;re=re+1;ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
 if (sc<=1){sc=1;key=key*100000;}
 if (sc>=1000){sc=10000;}
 tri++;
