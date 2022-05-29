@@ -52,7 +52,7 @@ int targx,bullx;
 int targy,bully,tempy;
 int null=100;
 int key,cari,carp;
-int re;
+int re1,re2,re3,re4,re5,re6;
 int co=1;
 int tri=1;
 void set_mode(byte mode)
@@ -125,7 +125,7 @@ int icony[]={4,4,4,4,4,1,1,1,1,1,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,1,1,1,1
 char *ini="DBG2 by keyvan mehrbakhsh 2022 ";
 
 
-char score[]={'1','2','3','4','5','6','7','8','9','0'};
+char score[]={'0','1','2','3','4','5','6','7','8','9'};
 char score2[]={'1','2','3','4','5','6','7','8','9','0'};
 
 
@@ -199,7 +199,7 @@ void caar(){
 
 	 for (int carp=0;carp<20;carp++){
 	 for (int cari=0;cari<20;cari++){
-		    for (int t=0;t<30;t++){
+		    for (int t=0;t<20;t++){
 
 
 	    //  GETPIX(ballx[cari]+xscroll, bally[carp+l+l+abs(sc)]+y,car[3+x] );
@@ -224,7 +224,7 @@ void chara(tri)
 		       {
 
 	    for (int carp=0;carp<40;carp++){
-	    for (int t=0;t<10;t++){
+
 		    // if (  x == car[cari]+xscroll && y == car[carp]+xscroll ){
 
 			// snd();
@@ -254,7 +254,7 @@ void chara(tri)
 
 			       }
 
-			       }
+
 
 
 
@@ -432,12 +432,12 @@ yscroll++;
 if (yscroll>=180){yscroll==0;}
 
 if (xscroll>=310){xscroll==10; }
-if (re>=310){re==10; }
+
 
 if (xtrig[tri]>310){xtrig[tri]=xtrig[tri]; }
 if (xtrig[tri]<10){xtrig[tri]=10; }
 if (ytrig[tri]<10){ytrig[tri]=10; }
-
+if (t>=10){t==1;}
 
 
 //if (sc<=0 ){ printf (" GAMEOVER " ,s);}
@@ -453,13 +453,33 @@ ytrig[tri]++;
 chara(tri);
 
 scoremath();
-	      l=1;
-       for (l=l;l<re;l++){
-    put_char (score[re+10], 230+8,10,8,VGA);
-		      if (re>=10){ l=l+8;re=1;  }
 
-			 }
-//if (sc>=10){re=0; }
+
+    put_char (score[re1], 270,10,8,VGA);
+     put_char (score[re2], 262,10,8,VGA);
+      put_char (score[re3], 254,10,8,VGA);
+       put_char (score[re4], 246,10,8,VGA);
+	put_char (score[re5], 238,10,8,VGA);
+	 put_char (score[re6], 230,10,8,VGA);
+		put_char (score[sc], 10,10,8,VGA);
+		      if (re1>=10){ re2=re2+1; re1=1; }
+		      if (re2>=10){ re3=re3+1; re2=1; }
+		      if (re3>=10){ re4=re4+1; re3=1; }
+		      if (re4>=10){ re5=re5+1; re4=1; }
+		      if (re5>=10){ re6=re6+1; re6=1; }
+		      if (re6>=10){ re2=re2+1; re2=1; }
+
+		      if (sc==-10){
+			for (l=0;l<sizeof ini*8;l++){
+ put_char (ini[l],20+l*8,100,1,VGA);
+
+		getch();
+
+	     }
+
+
+	 }
+
 
 
 
@@ -482,7 +502,7 @@ scoremath();
     GETPIX(150,192,6);
 
 //      }
-if (sc<=1){sc==1;}
+if (sc<=-2){sc=1;}
   default_scene();
     default_scene_bg();
 //bullet();
@@ -529,9 +549,17 @@ if(
 )
 
 
-{co++; snd();sc=sc+5;re=re+1;ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
-if (sc<=1){sc=1;key=key*100000;}
-if (sc>=1000){sc=10000;}
+{co++; snd();sc=sc+10;
+
+
+		      re1=re1+1;
+
+
+
+ytrig[tri]--; xtrig[tri]=x+y*2;tri=tri-1;y=y+1;t=t/20;  }
+if (sc<=1){key=key*100000;}
+if (sc>=500){sc=sc-1;}
+
 tri++;
 tri++;
 tri++;
